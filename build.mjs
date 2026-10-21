@@ -393,6 +393,6 @@ const html = k
   .pageHtml({ title: "Inside Panther Lake", theme, body, script, width: 1180 })
   .replace("</style>", `${css}</style>`)
   .replace('<main class="iso-page">', '<main class="cpu-page">');
-const name = theme === "light" ? "cpu-light.html" : "cpu.html";
+const name = theme === "light" ? "cpu-light.html" : "index.html";
 writeFileSync(join(HERE, name), html);
 console.log("wrote", name, (html.length / 1024).toFixed(0) + " KB", count, "slides", "A12", A12.s.toFixed(2), "A23", A23.s.toFixed(2));

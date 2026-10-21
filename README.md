@@ -47,7 +47,7 @@ cd <YOUR_REPOSITORY_DIRECTORY>
 
 Open either of the following files in your browser:
 
-- `cpu.html` — Dark theme
+- `index.html` — Dark theme
 - `cpu-light.html` — Light theme
 
 The prebuilt HTML files can be opened directly without installing additional dependencies or starting a development server.
@@ -63,7 +63,7 @@ python3 -m http.server 8000
 Open the following URL in your browser:
 
 ```text
-http://localhost:8000/cpu.html
+http://localhost:8000/index.html
 ```
 
 ## Building from Source
@@ -122,7 +122,7 @@ The simulator provides an educational representation of instruction scheduling a
 
 | File or Directory | Description |
 |---|---|
-| `cpu.html` | Standalone interactive visualization with a dark theme |
+| `index.html` | Standalone interactive visualization with a dark theme |
 | `cpu-light.html` | Standalone interactive visualization with a light theme |
 | `model.mjs` | Cycle-based P-core simulation model |
 | `model.test.mjs` | Self-check for the processor simulation |
