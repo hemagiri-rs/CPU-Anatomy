@@ -61,7 +61,7 @@
   <p>Along the back edge, a 128-bit interface in four channels drives the LPDDR5X or DDR5 chips: up to LPDDR5X-9600, or DDR5-7200 on some models. Every cache miss that reaches DRAM leaves through these pads.</p>
   <p class="cpu-watch">Watch: the physical interface signalling.</p>
 </section>
-<section class="cpu-slide" data-slide="10">
+<section class="cpu-slide" data-slide="10" data-dwell="8">
   <p class="cpu-num">10 · One P-core</p>
   <h2>Inside a Cougar Cove core</h2>
   <p>Zoom into one P-core and its pipeline runs from back to front:</p>
@@ -73,38 +73,38 @@
   </ul>
   <p class="cpu-small">Structure sizes are Lion Cove's published figures; Intel says Cougar Cove extends them.</p>
 </section>
-<section class="cpu-slide" data-slide="11">
+<section class="cpu-slide" data-slide="11" data-dwell="8">
   <p class="cpu-num">11 · Front end</p>
   <h2>Predict, fetch, decode</h2>
   <p>The <b>branch predictor</b> (12K-entry branch target buffer) guesses where the program goes next. The <b>64 KB instruction cache</b> delivers the instructions and <b>8 decoders</b> turn them into micro-ops. Hot loops are replayed from the <b>micro-op cache</b>, which holds 5,250 micro-ops and delivers 12 a cycle, into a 192-entry queue.</p>
   <p class="cpu-watch">Watch: each loop iteration is fetched in one cycle and decoded into micro-ops.</p>
 </section>
-<section class="cpu-slide" data-slide="12">
+<section class="cpu-slide" data-slide="12" data-dwell="8">
   <p class="cpu-num">12 · Out of order</p>
   <h2>Rename and reorder</h2>
   <p>Up to 8 micro-ops a cycle are <b>renamed</b> onto physical registers and given a place in the <b>reorder buffer</b> (576 entries). They then wait in the schedulers until their inputs are ready.</p>
   <p>That's why the independent <code>add r3</code> races ahead while <code>add r0</code> waits 9 cycles for the load.</p>
   <p class="cpu-watch">Watch: the ROB slots fill up; tokens are colour-coded by type.</p>
 </section>
-<section class="cpu-slide" data-slide="13">
+<section class="cpu-slide" data-slide="13" data-dwell="8">
   <p class="cpu-num">13 · Execution</p>
   <h2>18 ports</h2>
   <p>Each cycle the schedulers send ready micro-ops to <b>18 execution ports</b>: 6 integer ALUs, 4 vector and floating-point units (two for multiply-add, two for add), and 3 load and 3 store address units. The oldest ready micro-ops go first.</p>
   <p class="cpu-watch">Watch: several ports fire in the same cycle.</p>
 </section>
-<section class="cpu-slide" data-slide="14">
+<section class="cpu-slide" data-slide="14" data-dwell="8">
   <p class="cpu-num">14 · Memory pipeline</p>
   <h2>L0, L1, L2</h2>
   <p>Loads check a <b>48 KB L0 cache</b> in 4 cycles, then a <b>192 KB L1</b> in 9 cycles, then the core's private <b>3 MB L2</b>, before going out to L3. The DTLB translates addresses with 128 entries.</p>
   <p class="cpu-watch">Watch: the first load of n misses L0 and is found in L1.</p>
 </section>
-<section class="cpu-slide" data-slide="15">
+<section class="cpu-slide" data-slide="15" data-dwell="8">
   <p class="cpu-num">15 · Speculation</p>
   <h2>Mispredict, flush, retire</h2>
   <p>The predictor assumes the loop continues, so the core runs ahead into iterations that may never happen. When the last <code>jnz</code> resolves as not taken, every younger micro-op is <b>flushed</b> and fetch restarts at the right address. Results only become official at <b>retirement</b>, in program order, up to 8 a cycle.</p>
   <p class="cpu-watch">Watch for the red flush at the end of the loop.</p>
 </section>
-<section class="cpu-slide cpu-slide-run" data-slide="16">
+<section class="cpu-slide cpu-slide-run" data-slide="16" data-dwell="14">
   <p class="cpu-num">16 · All together</p>
   <h2>Run it</h2>
   <p>The program loads n = 10, adds 10 + 9 + … + 1 = 55, counts the iterations and stores the sum. It retires 45 instructions in 31 cycles, about 1.45 per cycle.</p>

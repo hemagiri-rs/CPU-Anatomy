@@ -232,7 +232,19 @@ body{background:var(--anatomy-card)}
 .cpu-foot ul{padding-left:18px;margin:10px 0 0;display:grid;gap:6px}
 .cpu-foot a{color:var(--anatomy-text)}
 .cpu-legend{display:none}
-</style></head><body class="iso" data-theme="light"><main class="cpu-page"><div class="cpu-track" style="height:1700vh">
+
+/* play mode and the way back to the CPU list */
+.cpu-nav [data-play]{margin-left:6px;font-size:10px;letter-spacing:-.05em}
+.cpu-nav [data-play][data-state="playing"]{color:var(--anatomy-strong);box-shadow:0 0 0 1px var(--anatomy-hi)}
+.cpu-home{margin-left:6px;color:var(--anatomy-muted);text-decoration:none;font:11px/1 var(--anatomy-mono);letter-spacing:.06em;padding:8px 2px}
+.cpu-home:hover{color:var(--anatomy-strong)}
+.cpu-nav [data-music]{font-size:12px}
+.cpu-nav [data-music][data-state="on"]{color:var(--anatomy-strong);box-shadow:0 0 0 1px var(--anatomy-hi)}
+.cpu-nav [data-music][data-state="off"]{color:var(--anatomy-muted);text-decoration:line-through}
+.cpu-nav [data-music][data-state="waiting"]{color:var(--anatomy-strong);animation:cpu-music-wait 1.6s ease-in-out infinite}
+@keyframes cpu-music-wait{50%{box-shadow:0 0 0 1px var(--anatomy-hi),0 0 0 4px color-mix(in oklab,var(--anatomy-hi) 30%,transparent)}}
+@media (prefers-reduced-motion:reduce){.cpu-nav [data-music][data-state="waiting"]{animation:none}}
+</style></head><body class="iso" data-theme="dark"><main class="cpu-page"><div class="cpu-track" style="height:1700vh">
 <div class="cpu-screen">
   <div class="cpu-progress" aria-hidden="true"><span data-bar></span></div>
   <div class="cpu-art"><div class="cpu-stage" role="group" aria-label="Panther Lake processor figure. Scroll, or use the arrow keys, to move from slide to slide.">
@@ -305,7 +317,7 @@ body{background:var(--anatomy-card)}
   <p>Along the back edge, a 128-bit interface in four channels drives the LPDDR5X or DDR5 chips: up to LPDDR5X-9600, or DDR5-7200 on some models. Every cache miss that reaches DRAM leaves through these pads.</p>
   <p class="cpu-watch">Watch: the physical interface signalling.</p>
 </section>
-<section class="cpu-slide" data-slide="10">
+<section class="cpu-slide" data-slide="10" data-dwell="8">
   <p class="cpu-num">10 · One P-core</p>
   <h2>Inside a Cougar Cove core</h2>
   <p>Zoom into one P-core and its pipeline runs from back to front:</p>
@@ -317,38 +329,38 @@ body{background:var(--anatomy-card)}
   </ul>
   <p class="cpu-small">Structure sizes are Lion Cove's published figures; Intel says Cougar Cove extends them.</p>
 </section>
-<section class="cpu-slide" data-slide="11">
+<section class="cpu-slide" data-slide="11" data-dwell="8">
   <p class="cpu-num">11 · Front end</p>
   <h2>Predict, fetch, decode</h2>
   <p>The <b>branch predictor</b> (12K-entry branch target buffer) guesses where the program goes next. The <b>64 KB instruction cache</b> delivers the instructions and <b>8 decoders</b> turn them into micro-ops. Hot loops are replayed from the <b>micro-op cache</b>, which holds 5,250 micro-ops and delivers 12 a cycle, into a 192-entry queue.</p>
   <p class="cpu-watch">Watch: each loop iteration is fetched in one cycle and decoded into micro-ops.</p>
 </section>
-<section class="cpu-slide" data-slide="12">
+<section class="cpu-slide" data-slide="12" data-dwell="8">
   <p class="cpu-num">12 · Out of order</p>
   <h2>Rename and reorder</h2>
   <p>Up to 8 micro-ops a cycle are <b>renamed</b> onto physical registers and given a place in the <b>reorder buffer</b> (576 entries). They then wait in the schedulers until their inputs are ready.</p>
   <p>That's why the independent <code>add r3</code> races ahead while <code>add r0</code> waits 9 cycles for the load.</p>
   <p class="cpu-watch">Watch: the ROB slots fill up; tokens are colour-coded by type.</p>
 </section>
-<section class="cpu-slide" data-slide="13">
+<section class="cpu-slide" data-slide="13" data-dwell="8">
   <p class="cpu-num">13 · Execution</p>
   <h2>18 ports</h2>
   <p>Each cycle the schedulers send ready micro-ops to <b>18 execution ports</b>: 6 integer ALUs, 4 vector and floating-point units (two for multiply-add, two for add), and 3 load and 3 store address units. The oldest ready micro-ops go first.</p>
   <p class="cpu-watch">Watch: several ports fire in the same cycle.</p>
 </section>
-<section class="cpu-slide" data-slide="14">
+<section class="cpu-slide" data-slide="14" data-dwell="8">
   <p class="cpu-num">14 · Memory pipeline</p>
   <h2>L0, L1, L2</h2>
   <p>Loads check a <b>48 KB L0 cache</b> in 4 cycles, then a <b>192 KB L1</b> in 9 cycles, then the core's private <b>3 MB L2</b>, before going out to L3. The DTLB translates addresses with 128 entries.</p>
   <p class="cpu-watch">Watch: the first load of n misses L0 and is found in L1.</p>
 </section>
-<section class="cpu-slide" data-slide="15">
+<section class="cpu-slide" data-slide="15" data-dwell="8">
   <p class="cpu-num">15 · Speculation</p>
   <h2>Mispredict, flush, retire</h2>
   <p>The predictor assumes the loop continues, so the core runs ahead into iterations that may never happen. When the last <code>jnz</code> resolves as not taken, every younger micro-op is <b>flushed</b> and fetch restarts at the right address. Results only become official at <b>retirement</b>, in program order, up to 8 a cycle.</p>
   <p class="cpu-watch">Watch for the red flush at the end of the loop.</p>
 </section>
-<section class="cpu-slide cpu-slide-run" data-slide="16">
+<section class="cpu-slide cpu-slide-run" data-slide="16" data-dwell="14">
   <p class="cpu-num">16 · All together</p>
   <h2>Run it</h2>
   <p>The program loads n = 10, adds 10 + 9 + … + 1 = 55, counts the iterations and stores the sum. It retires 45 instructions in 31 cycles, about 1.45 per cycle.</p>
@@ -361,7 +373,7 @@ body{background:var(--anatomy-card)}
   <p class="cpu-small"><span class="cpu-dot" style="--tint:var(--d-int)"></span>integer <span class="cpu-dot" style="--tint:var(--d-mem)"></span>load/store <span class="cpu-dot" style="--tint:var(--d-ooo)"></span>branch <span class="cpu-dot" style="--tint:var(--d-flush)"></span>flushed</p>
 </section>
 </div>
-  <nav class="cpu-nav" aria-label="Slides"><button type="button" data-go="-1" aria-label="Previous slide">↑</button><span data-count>01 / 17</span><button type="button" data-go="1" aria-label="Next slide">↓</button></nav>
+  <nav class="cpu-nav" aria-label="Slides"><button type="button" data-go="-1" aria-label="Previous slide">↑</button><span data-count>01 / 17</span><button type="button" data-go="1" aria-label="Next slide">↓</button><button type="button" data-play aria-label="Play slideshow">▶</button><button type="button" data-music aria-label="Mute music">♪</button><a class="cpu-home" href="../">All CPUs</a></nav>
   <div class="cpu-live" aria-live="polite" data-live></div>
 </div>
 </div>
@@ -1579,4 +1591,207 @@ pShown = readScroll();
 render(pShown);
 kick();
 window.__cpu = { get state() { return sim; }, get slide() { return shown; }, at(p) { forced = p; kick(); } };
+
+// ---------------------------------------------------------------- play mode
+// Shared by every tour. Turns the deck into a timed slideshow: each slide stays
+// for its data-dwell seconds (6 by default), then the deck moves on by itself.
+// Any manual input (wheel, touch, arrow keys, the nav buttons) hands control back.
+// Needs from the tour: go(by), readScroll(), N, still.
+const playBtn = document.querySelector("[data-play]");
+const dwellOf = (i) => +(document.querySelectorAll(".cpu-slide")[i]?.dataset.dwell || 6);
+let playing = false, playTimer = 0;
+function setPlaying(on) {
+  playing = on;
+  clearTimeout(playTimer);
+  playBtn.dataset.state = on ? "playing" : "idle";
+  playBtn.setAttribute("aria-label", on ? "Pause slideshow" : "Play slideshow");
+  playBtn.textContent = on ? "❚❚" : "▶";
+  document.documentElement.toggleAttribute("data-playing", on);
+  if (on) queueNext();
+}
+function queueNext() {
+  const i = Math.round(readScroll());
+  if (i >= N - 1) { playTimer = setTimeout(() => setPlaying(false), dwellOf(i) * 1000); return; }
+  playTimer = setTimeout(() => { if (!playing) return; go(1); queueNext(); }, dwellOf(i) * 1000);
+}
+playBtn.addEventListener("click", () => {
+  if (!playing && Math.round(readScroll()) >= N - 1) scrollTo({ top: track.offsetTop, behavior: "auto" });
+  setPlaying(!playing);
+});
+const handBack = () => { if (playing) setPlaying(false); };
+addEventListener("wheel", handBack, { passive: true });
+addEventListener("touchstart", handBack, { passive: true });
+document.querySelectorAll("[data-go]").forEach((b) => b.addEventListener("click", handBack));
+addEventListener("keydown", (ev) => {
+  if (ev.key === " " && !ev.target.closest("button, input")) { ev.preventDefault(); playBtn.click(); return; }
+  if (/^Arrow|^Page|^Home$|^End$/.test(ev.key)) handBack();
+}, true);
+if (new URLSearchParams(location.search).has("play")) setPlaying(true);
+
+// ---------------------------------------------------------------- ambient music
+// Shared by every page. A calm pad synthesised with Web Audio: slow chords of
+// detuned, filtered saw voices spread across the stereo field, a generated hall
+// reverb, and now and then a soft bell note from the pentatonic scale.
+// Browsers only allow sound after a click, tap or key press on the page, so it
+// tries at load and again on every gesture until it runs; until then the ♪ button
+// pulses. The ♪ button mutes it, and the choice is remembered across pages.
+(() => {
+  const KEY = "cpu-music";
+  const VOLUME = 0.9; // tuned to about -24 dBFS RMS once the pad is in
+  const CHORD_S = 12;
+  const n = (midi) => 440 * Math.pow(2, (midi - 69) / 12);
+  // Cmaj9 → Am9 → Fmaj9 → G6/9, open voicings in the middle register
+  const CHORDS = [[48, 55, 62, 64, 71], [45, 52, 59, 60, 67], [41, 48, 55, 57, 64], [43, 50, 57, 59, 64]].map((c) => c.map(n));
+  const BELLS = [72, 74, 76, 79, 81, 84].map(n); // C major pentatonic, an octave above the pad
+  const read = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
+  const write = (v) => { try { localStorage.setItem(KEY, v); } catch {} };
+  const buttons = [...document.querySelectorAll("button[data-music]")];
+  let on = read() !== "off";
+  let ctx = null, master = null, pad = null, verb = null, chordTimer = 0, bellTimer = 0, step = 0;
+
+  // a stereo hall: two channels of decaying noise, slightly different
+  function impulse(seconds) {
+    const len = Math.floor(ctx.sampleRate * seconds);
+    const buf = ctx.createBuffer(2, len, ctx.sampleRate);
+    for (let ch = 0; ch < 2; ch++) {
+      const d = buf.getChannelData(ch);
+      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3.2);
+    }
+    return buf;
+  }
+  function build() {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return false;
+    ctx = new AC();
+    master = ctx.createGain();
+    master.gain.value = 0;
+    const limiter = ctx.createDynamicsCompressor();
+    limiter.threshold.value = -18;
+    limiter.ratio.value = 4;
+    master.connect(limiter).connect(ctx.destination);
+    const conv = ctx.createConvolver();
+    conv.buffer = impulse(4.5);
+    verb = ctx.createGain();
+    verb.gain.value = 0.9;
+    verb.connect(conv).connect(master);
+    // the pad's filter breathes slowly between dark and a little brighter
+    pad = ctx.createBiquadFilter();
+    pad.type = "lowpass";
+    pad.frequency.value = 900;
+    pad.Q.value = 0.7;
+    const lfo = ctx.createOscillator();
+    const depth = ctx.createGain();
+    lfo.frequency.value = 0.05;
+    depth.gain.value = 350;
+    lfo.connect(depth).connect(pad.frequency);
+    lfo.start();
+    const dry = ctx.createGain();
+    dry.gain.value = 0.55;
+    pad.connect(dry).connect(master);
+    pad.connect(verb);
+    return true;
+  }
+  function chord(notes, at) {
+    const dur = CHORD_S + 6;
+    notes.forEach((f, i) => {
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0, at);
+      g.gain.linearRampToValueAtTime(0.06, at + 5);
+      g.gain.setValueAtTime(0.06, at + dur - 6);
+      g.gain.linearRampToValueAtTime(0, at + dur);
+      g.connect(pad);
+      for (const side of [-1, 1]) {
+        const o = ctx.createOscillator();
+        const p = ctx.createStereoPanner();
+        o.type = "sawtooth";
+        o.frequency.value = f;
+        o.detune.value = side * (5 + i);
+        p.pan.value = side * 0.6;
+        o.connect(p).connect(g);
+        o.start(at);
+        o.stop(at + dur + 0.1);
+      }
+    });
+  }
+  function bell() {
+    const at = ctx.currentTime + 0.05;
+    const f = BELLS[Math.floor(Math.random() * BELLS.length)];
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0, at);
+    g.gain.linearRampToValueAtTime(0.05, at + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, at + 4);
+    const p = ctx.createStereoPanner();
+    p.pan.value = Math.random() * 1.2 - 0.6;
+    g.connect(p);
+    p.connect(master);
+    p.connect(verb);
+    for (const [mult, level] of [[1, 1], [2.76, 0.18]]) {
+      const o = ctx.createOscillator();
+      const og = ctx.createGain();
+      o.frequency.value = f * mult;
+      og.gain.value = level;
+      o.connect(og).connect(g);
+      o.start(at);
+      o.stop(at + 4.1);
+    }
+    bellTimer = setTimeout(bell, 2500 + Math.random() * 4500);
+  }
+  function schedule() {
+    chord(CHORDS[step++ % CHORDS.length], ctx.currentTime + 0.05);
+    chordTimer = setTimeout(schedule, CHORD_S * 1000);
+  }
+  function fade(to, s) {
+    const t = ctx.currentTime;
+    master.gain.cancelScheduledValues(t);
+    master.gain.setValueAtTime(master.gain.value, t);
+    master.gain.linearRampToValueAtTime(to, t + s);
+  }
+  function start() {
+    if (!ctx && !build()) return;
+    const go = () => {
+      paint();
+      if (ctx.state !== "running" || !on) return;
+      if (!chordTimer) { schedule(); bellTimer = setTimeout(bell, 4000); }
+      fade(VOLUME, 4);
+    };
+    ctx.resume().then(go, go);
+    go();
+  }
+  function stop() {
+    if (!ctx) return;
+    fade(0, 1.5);
+    clearTimeout(chordTimer);
+    clearTimeout(bellTimer);
+    chordTimer = bellTimer = 0;
+  }
+  function paint() {
+    const waiting = on && (!ctx || ctx.state !== "running");
+    for (const b of buttons) {
+      b.setAttribute("aria-pressed", String(on));
+      b.setAttribute("aria-label", !on ? "Play music" : waiting ? "Music: click anywhere to start" : "Mute music");
+      b.title = waiting ? "Click anywhere to start the music" : "";
+      b.dataset.state = !on ? "off" : waiting ? "waiting" : "on";
+    }
+    // pages can style themselves on it, e.g. the home page's welcome screen
+    document.documentElement.dataset.music = !on ? "off" : waiting ? "waiting" : "on";
+  }
+  buttons.forEach((b) => b.addEventListener("click", (ev) => {
+    ev.stopPropagation();
+    // the first click on a waiting button means "start", not "mute"
+    if (on && (!ctx || ctx.state !== "running")) { start(); return; }
+    on = !on;
+    write(on ? "on" : "off");
+    on ? start() : stop();
+    paint();
+  }));
+  // every gesture tries again until the browser lets the music run
+  const nudge = (ev) => { if (!ev.target.closest?.("button[data-music]") && on && (!ctx || ctx.state !== "running")) start(); };
+  for (const type of ["pointerdown", "keydown", "touchend", "click"]) addEventListener(type, nudge, true);
+  document.addEventListener("visibilitychange", () => {
+    if (!ctx || !on) return;
+    document.hidden ? ctx.suspend() : ctx.resume().then(paint);
+  });
+  if (on) start(); // runs straight away where the browser already allows sound
+  paint();
+})();
 </script></body></html>

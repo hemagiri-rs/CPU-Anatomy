@@ -119,3 +119,15 @@ body{background:var(--anatomy-card)}
 .cpu-foot ul{padding-left:18px;margin:10px 0 0;display:grid;gap:6px}
 .cpu-foot a{color:var(--anatomy-text)}
 .cpu-legend{display:none}
+
+/* play mode and the way back to the CPU list */
+.cpu-nav [data-play]{margin-left:6px;font-size:10px;letter-spacing:-.05em}
+.cpu-nav [data-play][data-state="playing"]{color:var(--anatomy-strong);box-shadow:0 0 0 1px var(--anatomy-hi)}
+.cpu-home{margin-left:6px;color:var(--anatomy-muted);text-decoration:none;font:11px/1 var(--anatomy-mono);letter-spacing:.06em;padding:8px 2px}
+.cpu-home:hover{color:var(--anatomy-strong)}
+.cpu-nav [data-music]{font-size:12px}
+.cpu-nav [data-music][data-state="on"]{color:var(--anatomy-strong);box-shadow:0 0 0 1px var(--anatomy-hi)}
+.cpu-nav [data-music][data-state="off"]{color:var(--anatomy-muted);text-decoration:line-through}
+.cpu-nav [data-music][data-state="waiting"]{color:var(--anatomy-strong);animation:cpu-music-wait 1.6s ease-in-out infinite}
+@keyframes cpu-music-wait{50%{box-shadow:0 0 0 1px var(--anatomy-hi),0 0 0 4px color-mix(in oklab,var(--anatomy-hi) 30%,transparent)}}
+@media (prefers-reduced-motion:reduce){.cpu-nav [data-music][data-state="waiting"]{animation:none}}

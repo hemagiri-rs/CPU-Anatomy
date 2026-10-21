@@ -1,0 +1,20 @@
+
+/* Ryzen tour: the working-set explorer, decode ops and loads in flight */
+.cpu-op{fill:var(--d-fe)}
+.cpu-op-1{fill:var(--d-ooo)}
+.cpu-load{fill:var(--d-int)}
+.cpu-load-l3{fill:var(--d-cache)}
+.cpu-load-dram{fill:var(--d-flush)}
+.cpu-controls button[aria-pressed="true"]{color:var(--anatomy-strong);box-shadow:0 0 0 1px var(--anatomy-hi)}
+.cpu-small{font-size:12.5px!important;color:var(--anatomy-muted)}
+.amd-explore{margin:6px 0 12px;padding:12px 0;border-top:1px solid var(--anatomy-faint);border-bottom:1px solid var(--anatomy-faint);display:grid;gap:9px}
+.amd-ws{display:flex;justify-content:space-between;align-items:baseline;font:12px/1 var(--anatomy-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--anatomy-muted)}
+.amd-ws output{font-size:15px;color:var(--anatomy-strong);text-transform:none;font-variant-numeric:tabular-nums}
+.amd-explore input[type=range]{width:100%;accent-color:var(--d-cache);margin:2px 0 4px}
+.amd-bar{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;font-size:12.5px}
+.amd-bar span{color:var(--anatomy-text)}
+.amd-bar em{font:normal 12.5px/1 var(--anatomy-mono);color:var(--anatomy-strong);font-variant-numeric:tabular-nums}
+.amd-bar i{grid-column:1/-1;height:6px;border-radius:3px;background:var(--anatomy-faint);position:relative;overflow:hidden}
+.amd-bar i::after{content:"";position:absolute;inset:0;width:calc(var(--w,0)*100%);background:var(--tint);border-radius:3px;transition:width .25s var(--anatomy-ease)}
+.amd-share{margin:0!important;font:11.5px/1.4 var(--anatomy-mono)!important;color:var(--anatomy-muted)}
+@media (max-width:900px){.amd-explore{gap:6px;padding:8px 0}.cpu-slide-explore > p{display:none}}

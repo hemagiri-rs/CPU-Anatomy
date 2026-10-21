@@ -1,0 +1,110 @@
+<section class="cpu-slide" data-slide="0">
+  <p class="cpu-kicker">Anatomy · scroll or press ↓ · space to play</p>
+  <h1>Inside the Ryzen 9 9950X3D2</h1>
+  <p>AMD's newest desktop processor, released April 2026: 16 Zen 5 cores and <b>208 MB of cache</b>. It's the first Ryzen with an extra layer of cache stacked under <b>both</b> of its core chiplets. Here it sits in an AM5 socket on a desktop motherboard. We'll open the socket, take the chip apart, and see why the extra cache matters.</p>
+</section>
+<section class="cpu-slide" data-slide="1">
+  <p class="cpu-num">01 · Socket</p>
+  <h2>Held down by a steel plate</h2>
+  <p>Desktop chips aren't soldered down. A steel <b>load plate</b>, hinged at the back and locked by a <b>lever</b> at the side, presses the chip's lid evenly onto the socket. A stiffener frame, screwed through the board, takes the force.</p>
+  <p class="cpu-watch">Watch: the plate and lever lift away.</p>
+</section>
+<section class="cpu-slide" data-slide="2">
+  <p class="cpu-num">02 · AM5</p>
+  <h2>1,718 contacts, no pins</h2>
+  <p>AM5 is a land grid array: the <b>1,718</b> springy contacts are in the socket, and the chip's underside has flat pads. The package is 40 × 40 mm. A gold triangle on the corner shows which way it goes in.</p>
+  <p class="cpu-watch">Watch: the package lifts out of the socket to show the contact field.</p>
+</section>
+<section class="cpu-slide" data-slide="3">
+  <p class="cpu-num">03 · Chiplets</p>
+  <h2>Three dies under the lid</h2>
+  <p>Under the notched heat spreader are three separate dies, built on different processes:</p>
+  <ul class="cpu-keys">
+    <li style="--tint:var(--d-fe)"><b>Two CCDs</b> (core complex dies): eight Zen 5 cores each, on TSMC's 4 nm process. 70.6 mm² apiece.</li>
+    <li style="--tint:var(--d-io)"><b>One I/O die</b>: memory, PCIe, USB and a small GPU, on TSMC 6 nm. Carried over from the Ryzen 7000 series.</li>
+  </ul>
+  <p class="cpu-watch">The notches in the lid make room for capacitors on top of the package.</p>
+</section>
+<section class="cpu-slide" data-slide="4">
+  <p class="cpu-num">04 · I/O die</p>
+  <h2>Everything that isn't a core</h2>
+  <p>The 122 mm² I/O die holds the <b>DDR5 memory controller</b>, <b>28 lanes of PCIe 5.0</b> (graphics card, two SSDs and the chipset link), USB, and a 2-compute-unit Radeon GPU for basic display output.</p>
+  <p>Each CCD talks to it over its own <b>Infinity Fabric</b> link, wired through the package substrate.</p>
+  <p class="cpu-watch">Watch: traffic on the two fabric links.</p>
+</section>
+<section class="cpu-slide" data-slide="5">
+  <p class="cpu-num">05 · 3D V-Cache</p>
+  <h2>A cache die under each CCD</h2>
+  <p>Each CCD sits on top of a <b>64 MB SRAM die</b>. On earlier X3D chips the cache was stacked on top of the cores. Since the 9000 series it goes <b>underneath</b>, so the hot cores touch the heat spreader directly. The fabric link now passes down through the cache die.</p>
+  <p class="cpu-watch">Watch: the CCDs lift off their cache dies.</p>
+</section>
+<section class="cpu-slide" data-slide="6">
+  <p class="cpu-num">06 · One CCD</p>
+  <h2>Eight cores around a shared cache</h2>
+  <p>Zoomed in on one CCD: the eight cores line the two long edges, the L3 cache runs down the middle, and the fabric link sits at one end. Below it, the cache die carries the extra 64 MB.</p>
+  <p class="cpu-small">Block positions are simplified.</p>
+</section>
+<section class="cpu-slide" data-slide="7">
+  <p class="cpu-num">07 · Cores</p>
+  <h2>Eight Zen 5 cores</h2>
+  <p>Each core has its own <b>1 MB L2</b> cache (the bright strip facing the middle) and runs two threads. With two CCDs, that's 16 cores and 32 threads, from a 4.3 GHz base up to a <b>5.6 GHz</b> boost.</p>
+  <p class="cpu-watch">Watch: each core lights in turn.</p>
+</section>
+<section class="cpu-slide" data-slide="8">
+  <p class="cpu-num">08 · L3</p>
+  <h2>96 MB that every core shares</h2>
+  <p>The 32 MB on the CCD and the 64 MB below act as <b>one L3 cache</b>: any of the eight cores can use all 96 MB. The stacked part costs about <b>4 extra cycles</b> per hit. That small toll pays off whenever a program's data doesn't fit in 32 MB.</p>
+</section>
+<section class="cpu-slide" data-slide="9">
+  <p class="cpu-num">09 · Zen 5 core</p>
+  <h2>One core, top to bottom</h2>
+  <p>Instructions enter at the back: predict, fetch, decode. They are dispatched into the out-of-order window, executed on 14 pipes, and their loads go to the caches at the front.</p>
+  <ul class="cpu-keys">
+    <li style="--tint:var(--d-fe)">Front end</li>
+    <li style="--tint:var(--d-ooo)">Dispatch and the reorder buffer</li>
+    <li style="--tint:var(--d-int)">Integer · <span style="color:var(--d-vec)">floating point</span> · <span style="color:var(--d-mem)">memory</span></li>
+  </ul>
+</section>
+<section class="cpu-slide" data-slide="10" data-dwell="9">
+  <p class="cpu-num">10 · Front end</p>
+  <h2>Two decode pipes</h2>
+  <p>The branch predictor makes <b>two taken predictions per cycle</b>, so fetch can follow two paths at once. Behind it sit two <b>4-wide decode pipes</b>. Decoding alone, one thread gets one pipe, 4 instructions a cycle. With two threads, each gets its own pipe. Most of the time instructions skip decoding and come from the <b>6K-entry op cache</b>.</p>
+  <div class="cpu-controls" role="group" aria-label="Threads"><button type="button" data-threads="1" aria-pressed="false">1 thread</button><button type="button" data-threads="2" aria-pressed="true">2 threads</button></div>
+</section>
+<section class="cpu-slide" data-slide="11" data-dwell="8">
+  <p class="cpu-num">11 · Out of order</p>
+  <h2>448 instructions in flight</h2>
+  <p>Up to <b>8 ops a cycle</b> are renamed and dispatched into the <b>448-entry reorder buffer</b>. They run as soon as their inputs are ready, in any order, and retire in program order from the head. Floating-point work waits in its own 96-entry queue.</p>
+  <p class="cpu-watch">Watch: the buffer fills 8 entries a cycle, then wraps around as the oldest retire.</p>
+</section>
+<section class="cpu-slide" data-slide="12" data-dwell="8">
+  <p class="cpu-num">12 · Execution</p>
+  <h2>14 pipes, 512 bits wide</h2>
+  <p>Six <b>integer ALUs</b>, four <b>address units</b> that send four loads or stores a cycle to memory, and four <b>floating-point pipes</b> (two multiply, two add). On desktop the FP pipes are a full <b>512 bits</b> wide, so one AVX-512 instruction does 16 single-precision operations at once.</p>
+  <p class="cpu-watch">Watch: the pipes that fire each cycle.</p>
+</section>
+<section class="cpu-slide" data-slide="13">
+  <p class="cpu-num">13 · Loads</p>
+  <h2>Close caches are fast</h2>
+  <p>The <b>48 KB L1 data cache</b> answers a load in 4 cycles. The core's <b>1 MB L2</b> takes about 14. Past that is the L3, at about 50 cycles on this chip, and then main memory, at about 70 ns: nearly 400 cycles at 5.6 GHz.</p>
+  <p>So the question is how much of a program's data fits close by.</p>
+</section>
+<section class="cpu-slide cpu-slide-explore" data-slide="14" data-dwell="14">
+  <p class="cpu-num">14 · Try it</p>
+  <h2>How big is the working set?</h2>
+  <p>A core reads at random across a block of data. Drag to change its size, and compare the average load time with and without the stacked cache.</p>
+  <div class="amd-explore">
+    <label class="amd-ws"><span>Working set</span><output data-ws>64 MB</output></label>
+    <input type="range" min="0" max="100" value="67" step="1" data-ws-range aria-label="Working set size, 1 to 512 MB">
+    <div class="amd-bar" data-bar-of="x3d" style="--tint:var(--d-cache)"><span>9950X3D2 · 96 MB L3</span><i></i><em data-ns></em></div>
+    <div class="amd-bar" data-bar-of="plain" style="--tint:var(--anatomy-mid)"><span>without V-Cache · 32 MB</span><i></i><em data-ns></em></div>
+    <p class="amd-share" data-share></p>
+  </div>
+  <p class="cpu-small"><span class="cpu-dot" style="--tint:var(--d-int)"></span>L1/L2 <span class="cpu-dot" style="--tint:var(--d-cache)"></span>L3 <span class="cpu-dot" style="--tint:var(--d-flush)"></span>DRAM. Random reads are the worst case; real programs hit more.</p>
+</section>
+<section class="cpu-slide" data-slide="15">
+  <p class="cpu-num">15 · Both stacked</p>
+  <h2>Why “X3D2”</h2>
+  <p>The 9950X3D stacked cache under only <b>one</b> of its two CCDs. Software then had to keep a game on the right CCD. The X3D2 stacks both, so all 16 cores see 96 MB of L3: <b>192 MB</b>, plus 16 MB of L2.</p>
+  <p>It costs power: a <b>200 W</b> TDP, and AMD recommends a 360 mm liquid cooler.</p>
+</section>

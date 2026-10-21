@@ -1,0 +1,16 @@
+<footer class="cpu-foot">
+  <h3>Sources and caveats</h3>
+  <p>A teaching figure, not a die photo. Chip specs come from launch reviews. The core's structures come from AMD's own Hot Chips 2024 presentation. Die and package layouts are simplified. The working-set explorer is our own model: one core reading uniformly at random, with each cache holding its share of the data. That's the worst case for a cache, so real programs do better. Latencies are rounded published measurements: L3 at 46 cycles comes from a mobile Zen 5 part, plus the 4 cycles that V-Cache adds, and DRAM at 70 ns comes from a 9950X with DDR5-6000.</p>
+  <ul>
+    <li><a href="https://hc2024.hotchips.org/assets/program/conference/day2/24_HC2024.AMD.Cohen.Subramony.final.pdf">AMD · Next Generation “Zen 5” Core, Hot Chips 2024 (PDF)</a>: two 4-wide decode pipes, 6K op cache, 2 taken predictions per cycle, 16K L1 BTB, 52-entry return stack, 8-wide dispatch, 448-entry ROB, 6 ALUs, 4 AGUs, 4 FP pipes with a 512-bit datapath, 240 integer and 384 vector registers, 96-entry FP queue, 48 KB L1D at 4 cycles, 1 MB L2</li>
+    <li><a href="https://chipsandcheese.com/p/amds-9800x3d-2nd-generation-v-cache">Chips and Cheese · AMD's 9800X3D: 2nd Generation V-Cache</a>: the 64 MB SRAM die moved beneath the CCD, the fabric link now runs down through it, and V-Cache adds 4 cycles to an L3 hit</li>
+    <li><a href="https://chipsandcheese.com/p/disabling-zen-5s-op-cache-and-exploring">Chips and Cheese · Zen 5's op cache and clustered decoder</a>: one decode pipe per thread, so 4 a cycle for one thread and 8 for two from the decoders alone</li>
+    <li><a href="https://chipsandcheese.com/p/amds-ryzen-9950x-zen-5-on-desktop">Chips and Cheese · Ryzen 9950X: Zen 5 on desktop</a>: two CCDs and one I/O die, Infinity Fabric per CCD, about 70 ns DRAM latency with DDR5-6000</li>
+    <li><a href="https://www.storagereview.com/review/amd-ryzen-9-9950x3d2-dual-edition-review-3d-v-cache-on-both-ccds">StorageReview · Ryzen 9 9950X3D2 Dual Edition review</a>: 16 cores and 32 threads, 4.3 to 5.6 GHz, 16 MB L2 + 192 MB L3 = 208 MB, 200 W TDP and 270 W PPT, 360 mm cooler recommended, V-Cache on both CCDs</li>
+    <li><a href="https://en.wikipedia.org/wiki/AMD_Ryzen_9_9950X3D">Wikipedia · Ryzen 9 9950X3D</a>: release on April 22, 2026</li>
+    <li><a href="https://en.wikipedia.org/wiki/Zen_5">Wikipedia · Zen 5</a>: CCD of 70.6 mm², 32 MB L3 per CCD and 96 MB with V-Cache, I/O die on TSMC N6</li>
+    <li><a href="https://www.hwcooling.net/en/zen-5-tested-mobile-core-differs-considerably-from-desktop-one/">HWCooling · Zen 5 tested</a>: L2 at 14 cycles, L3 at 46 cycles on a mobile part</li>
+    <li><a href="https://en.wikipedia.org/wiki/Socket_AM5">Wikipedia · Socket AM5</a>: LGA 1718</li>
+    <li><a href="https://www.tomshardware.com/news/amd-zen-4-ryzen-7000-release-date-specifications-pricing-benchmarks-all-we-know-specs">Tom's Hardware · Ryzen 7000 platform</a> and <a href="https://www.servethehome.com/amd-ryzen-7000-series-platform-overview/">ServeTheHome · Ryzen 7000 platform overview</a>: the 6 nm, 122 mm² I/O die the 9000 series reuses, 28 PCIe 5.0 lanes, DDR5 and the 2-CU RDNA 2 graphics</li>
+  </ul>
+</footer>
