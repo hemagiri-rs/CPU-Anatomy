@@ -1,12 +1,12 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import * as k from "/home/user/.claude/skills/anatomy/kit/iso-kit.mjs";
-import { kitScript } from "/home/user/.claude/skills/anatomy/scripts/inline-kit.mjs";
+import * as k from "./vendor/iso-kit.mjs";
 import * as F from "./floor.mjs";
 import { PROGRAM, N_VALUE } from "./model.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
+const kitScript = () => readFileSync(join(HERE, "vendor/iso-kit.mjs"), "utf8").replace(/^export /gm, "");
 const theme = process.argv.includes("--light") ? "light" : "dark";
 const W = 600;
 const H = 440;
