@@ -6,7 +6,11 @@ The project combines detailed architectural visualization with a cycle-based out
 
 ## Demo
 
-[![Inside Panther Lake Demo](brag-output/brag.jpg)](brag-output/brag.mp4)
+
+
+https://github.com/user-attachments/assets/a8eb51da-9c22-442e-b3cc-b2639d07fa9b
+
+
 
 The visualization progressively reveals the processor's internal structure through a scroll-driven experience. Users can explore the processor package, examine the compute tile, and zoom into an individual P-core to observe the execution simulation.
 
