@@ -337,7 +337,7 @@ ${svg("cpu-l3", L3, "One Cougar Cove P-core: branch predictor, instruction cache
   <div class="cpu-corners" aria-hidden="true"><span data-corner="fig" data-fig>Fig 1</span><span data-corner="title" data-title>Panther Lake</span><span data-corner="readout" data-readout></span></div>
   <div class="cpu-legend" data-legend aria-hidden="true"></div>
   <div class="cpu-captions">${SLIDES.replace("<!--LISTING-->", `<ol class="cpu-listing">${listing}</ol>`).replace("<!--CONTROLS-->", controls)}</div>
-  <nav class="cpu-nav" aria-label="Slides"><button type="button" data-go="-1" aria-label="Previous slide">↑</button><span data-count>01 / ${String(count).padStart(2, "0")}</span><button type="button" data-go="1" aria-label="Next slide">↓</button><button type="button" data-play aria-label="Play slideshow">▶</button><button type="button" data-music aria-label="Mute music">♪</button><a class="cpu-home" href="../">All CPUs</a></nav>
+  <nav class="cpu-nav" aria-label="Slides"><button type="button" data-go="-1" aria-label="Previous slide">↑</button><span data-count>01 / ${String(count).padStart(2, "0")}</span><button type="button" data-go="1" aria-label="Next slide">↓</button><button type="button" data-play aria-label="Play slideshow">▶</button><button type="button" data-music data-src="../assets/audio/calm-space-music.mp3" aria-label="Mute music">♪</button><a class="cpu-home" href="../">All CPUs</a></nav>
   <div class="cpu-live" aria-live="polite" data-live></div>
 </div>
 </div>

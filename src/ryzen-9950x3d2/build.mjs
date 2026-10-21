@@ -357,7 +357,7 @@ ${svg("cpu-l3", L3.svg, "One Zen 5 core: two-ahead branch predictor, 32 KB instr
   </div></div>
   <div class="cpu-corners" aria-hidden="true"><span data-corner="fig" data-fig>Fig 1</span><span data-corner="title" data-title>9950X3D2</span><span data-corner="readout" data-readout></span></div>
   <div class="cpu-captions">${SLIDES}</div>
-  <nav class="cpu-nav" aria-label="Slides"><button type="button" data-go="-1" aria-label="Previous slide">↑</button><span data-count>01 / ${String(count).padStart(2, "0")}</span><button type="button" data-go="1" aria-label="Next slide">↓</button><button type="button" data-play aria-label="Play slideshow">▶</button><button type="button" data-music aria-label="Mute music">♪</button><a class="cpu-home" href="../">All CPUs</a></nav>
+  <nav class="cpu-nav" aria-label="Slides"><button type="button" data-go="-1" aria-label="Previous slide">↑</button><span data-count>01 / ${String(count).padStart(2, "0")}</span><button type="button" data-go="1" aria-label="Next slide">↓</button><button type="button" data-play aria-label="Play slideshow">▶</button><button type="button" data-music data-src="../assets/audio/calm-space-music.mp3" aria-label="Mute music">♪</button><a class="cpu-home" href="../">All CPUs</a></nav>
   <div class="cpu-live" aria-live="polite" data-live></div>
 </div>
 </div>

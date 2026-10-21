@@ -36,7 +36,7 @@ https://github.com/user-attachments/assets/a8eb51da-9c22-442e-b3cc-b2639d07fa9b
 
 - **Scroll** or use the **arrow keys** to move through the slides.
 - Press **▶** or the **space bar** for autoplay: each slide stays a few seconds, then the tour moves on by itself. Scrolling or using the arrow keys takes control back.
-- **♪** toggles calm background music, generated in the browser. Browsers only allow sound after a click, so the home page opens with a short welcome screen: **Enter** starts the music, and it carries on into whichever tour you open. Opened directly, a tour starts the music on your first click or key press. Muting is remembered.
+- **♪** toggles calm background music: *Calm Space Music* by Clavier-Music, from Pixabay. Browsers only allow sound after a click, so the home page opens with a short welcome screen: **Enter** starts the music, and it carries on into whichever tour you open. Opened directly, a tour starts the music on your first click or key press. Muting is remembered.
 - Every number is cited on the tour's last page. The Ryzen core figures come from AMD's Hot Chips 2024 Zen 5 talk; the rest come from Chips and Cheese and launch reviews.
 
 ## Project layout
@@ -50,7 +50,7 @@ src/
     deck.mjs               drawing helpers for the build scripts
     deck.css               slide, caption and nav styles
     play.js                autoplay
-    ambient.js             background music (Web Audio)
+    ambient.js             background music player
     iso-kit.mjs            isometric drawing kit (MIT, see LICENSE-iso-kit)
   <tour>/                  one folder per CPU
     build.mjs              draws every scene and writes the self-contained page
@@ -61,6 +61,7 @@ src/
     slides.html            slide text
     sources.html           cited sources
 assets/
+  audio/                   the background music track
   img/                     screenshots for the picker and this README
   demo/                    the demo video and its poster
 build.mjs                  builds every tour and runs every check
@@ -79,6 +80,10 @@ To preview locally, run `python3 -m http.server 8000` and open http://localhost:
 ### Adding a CPU
 
 Make `src/<name>/` with the same files as an existing tour, and design its own scenes and demo in `build.mjs` and `live.js`. Then run `node build.mjs`, which writes `<name>/index.html` and `<name>/light.html`. Finally, add a card for it in the root `index.html`.
+
+## Thanks
+
+Music: [Calm Space Music](https://pixabay.com/music/search/calm%20space%20music/) by **Clavier-Music** on Pixabay, used under the Pixabay Content License. Thanks to Clavier-Music! This helps keep the creative spirit going.
 
 ---
 
