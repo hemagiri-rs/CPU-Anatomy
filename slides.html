@@ -1,0 +1,114 @@
+<section class="cpu-slide" data-slide="0">
+  <p class="cpu-kicker">Anatomy · scroll or press ↓</p>
+  <h1>Inside Panther Lake</h1>
+  <p>Intel's Core Ultra Series 3 launched in January 2026 as the first client processor built on <b>Intel 18A</b>. Here it sits on a laptop mainboard. We'll take it apart, zoom into the silicon, and watch one core run a program out of order.</p>
+</section>
+<section class="cpu-slide" data-slide="1">
+  <p class="cpu-num">01 · Cooling</p>
+  <h2>The cooling module</h2>
+  <p>A copper <b>cold plate</b> presses on the dies. Two flattened <b>heat pipes</b> carry heat to a stack of thin fins at the edge of the board. A <b>blower fan</b> pulls air in through its centre and pushes it out through the fins.</p>
+  <p class="cpu-watch">Watch: the blower spins as the module lifts off its four screws.</p>
+</section>
+<section class="cpu-slide" data-slide="2">
+  <p class="cpu-num">02 · Package</p>
+  <h2>Soldered to the board</h2>
+  <p>Laptop processors aren't socketed: the package is soldered straight onto pads on the board in a ball grid array. Unlike Lunar Lake, Panther Lake keeps memory <b>off the package</b>. Traces run to four LPDDR5X chips, up to LPDDR5X-9600 on the top parts.</p>
+  <p class="cpu-watch">Watch: the package lifts to show the solder pads beneath it.</p>
+</section>
+<section class="cpu-slide" data-slide="3">
+  <p class="cpu-num">03 · Foveros</p>
+  <h2>Three tiles on one base</h2>
+  <p>The chip is built from separate dies, called tiles, stacked on a base with Intel's <b>Foveros</b> packaging:</p>
+  <ul class="cpu-keys">
+    <li style="--tint:var(--d-fe)"><b>Compute tile</b>: Intel 18A. Cores, cache, NPU and memory controller.</li>
+    <li style="--tint:var(--d-gpu)"><b>GPU tile</b>: 12 Xe3 cores, made on TSMC N3E. The 4-core version is made on Intel 3.</li>
+    <li style="--tint:var(--d-io)"><b>Platform controller tile</b>: TSMC. PCIe, Thunderbolt, USB and Wi-Fi.</li>
+  </ul>
+  <p class="cpu-watch">Watch: the tiles lift to show the micro-bumps that join them to the base. Dark filler tiles keep the top flat for the cold plate.</p>
+</section>
+<section class="cpu-slide" data-slide="4">
+  <p class="cpu-num">04 · Compute tile</p>
+  <h2>A city of blocks</h2>
+  <p>Zoomed in, the compute tile is about 14.3 × 8.0 mm, roughly 115 mm². It holds 16 cores: 4 performance cores, 8 efficient cores and 4 low-power efficient cores, plus caches, the NPU, media and display engines, and the memory interface.</p>
+  <p class="cpu-small">Block positions are simplified from published annotated die shots.</p>
+</section>
+<section class="cpu-slide" data-slide="5">
+  <p class="cpu-num">05 · P-cores</p>
+  <h2>Four Cougar Cove P-cores</h2>
+  <p>The performance cores are the big, wide engines for heavy single-threaded work. <b>Cougar Cove</b> builds on Lion Cove with a larger branch predictor, a 50% larger TLB and better memory disambiguation. Intel claims about 10% more single-thread performance than Arrow Lake and Lunar Lake.</p>
+  <p class="cpu-watch">Watch: the scheduler hands work to each P-core in turn.</p>
+</section>
+<section class="cpu-slide" data-slide="6">
+  <p class="cpu-num">06 · E-cores</p>
+  <h2>Darkmont E-cores and the LP island</h2>
+  <p>Two clusters of four <b>Darkmont</b> E-cores sit between the P-cores, and each cluster shares a 4 MB L2. They add throughput for multi-threaded work at much lower power per core.</p>
+  <p>Four more Darkmont cores sit on a separate <b>low-power island</b>, so light background tasks can run while the main cluster sleeps.</p>
+</section>
+<section class="cpu-slide" data-slide="7">
+  <p class="cpu-num">07 · Memory hierarchy</p>
+  <h2>18 MB of L3 on a ring</h2>
+  <p>The P-cores and E-cores share an <b>18 MB L3</b> cache, split into slices at the stops of a <b>ring bus</b>. Behind it, an <b>8 MB memory-side cache</b> serves every block on the tile, including the LP island and the NPU, so fewer trips go out to DRAM.</p>
+  <p class="cpu-watch">Watch: requests ride the ring stop by stop.</p>
+</section>
+<section class="cpu-slide" data-slide="8">
+  <p class="cpu-num">08 · AI and media</p>
+  <h2>NPU 5, media and display</h2>
+  <p>The <b>NPU</b> is a dedicated engine for neural networks: arrays of multiply-accumulate units with their own 4.5 MB of cache. It reaches up to 50 TOPS, adds FP8 support, and is about 40% smaller than Lunar Lake's NPU. The <b>media engine</b> encodes and decodes video; the <b>display engine</b> drives the screens.</p>
+</section>
+<section class="cpu-slide" data-slide="9">
+  <p class="cpu-num">09 · To DRAM</p>
+  <h2>The memory interface</h2>
+  <p>Along the back edge, a 128-bit interface in four channels drives the LPDDR5X or DDR5 chips: up to LPDDR5X-9600, or DDR5-7200 on some models. Every cache miss that reaches DRAM leaves through these pads.</p>
+  <p class="cpu-watch">Watch: the physical interface signalling.</p>
+</section>
+<section class="cpu-slide" data-slide="10">
+  <p class="cpu-num">10 · One P-core</p>
+  <h2>Inside a Cougar Cove core</h2>
+  <p>Zoom into one P-core and its pipeline runs from back to front:</p>
+  <ul class="cpu-keys">
+    <li style="--tint:var(--d-fe)"><b>Front end</b>: predict, fetch, decode</li>
+    <li style="--tint:var(--d-ooo)"><b>Out-of-order engine</b>: rename, reorder</li>
+    <li style="--tint:var(--d-int)"><b>Integer</b> and <span style="color:var(--d-vec)">vector</span> execution</li>
+    <li style="--tint:var(--d-mem)"><b>Memory pipeline</b> and <span style="color:var(--d-cache)">caches</span></li>
+  </ul>
+  <p class="cpu-small">Structure sizes are Lion Cove's published figures; Intel says Cougar Cove extends them.</p>
+</section>
+<section class="cpu-slide" data-slide="11">
+  <p class="cpu-num">11 · Front end</p>
+  <h2>Predict, fetch, decode</h2>
+  <p>The <b>branch predictor</b> (12K-entry branch target buffer) guesses where the program goes next. The <b>64 KB instruction cache</b> delivers the instructions and <b>8 decoders</b> turn them into micro-ops. Hot loops are replayed from the <b>micro-op cache</b>, which holds 5,250 micro-ops and delivers 12 a cycle, into a 192-entry queue.</p>
+  <p class="cpu-watch">Watch: each loop iteration is fetched in one cycle and decoded into micro-ops.</p>
+</section>
+<section class="cpu-slide" data-slide="12">
+  <p class="cpu-num">12 · Out of order</p>
+  <h2>Rename and reorder</h2>
+  <p>Up to 8 micro-ops a cycle are <b>renamed</b> onto physical registers and given a place in the <b>reorder buffer</b> (576 entries). They then wait in the schedulers until their inputs are ready.</p>
+  <p>That's why the independent <code>add r3</code> races ahead while <code>add r0</code> waits 9 cycles for the load.</p>
+  <p class="cpu-watch">Watch: the ROB slots fill up; tokens are colour-coded by type.</p>
+</section>
+<section class="cpu-slide" data-slide="13">
+  <p class="cpu-num">13 · Execution</p>
+  <h2>18 ports</h2>
+  <p>Each cycle the schedulers send ready micro-ops to <b>18 execution ports</b>: 6 integer ALUs, 4 vector and floating-point units (two for multiply-add, two for add), and 3 load and 3 store address units. The oldest ready micro-ops go first.</p>
+  <p class="cpu-watch">Watch: several ports fire in the same cycle.</p>
+</section>
+<section class="cpu-slide" data-slide="14">
+  <p class="cpu-num">14 · Memory pipeline</p>
+  <h2>L0, L1, L2</h2>
+  <p>Loads check a <b>48 KB L0 cache</b> in 4 cycles, then a <b>192 KB L1</b> in 9 cycles, then the core's private <b>3 MB L2</b>, before going out to L3. The DTLB translates addresses with 128 entries.</p>
+  <p class="cpu-watch">Watch: the first load of n misses L0 and is found in L1.</p>
+</section>
+<section class="cpu-slide" data-slide="15">
+  <p class="cpu-num">15 · Speculation</p>
+  <h2>Mispredict, flush, retire</h2>
+  <p>The predictor assumes the loop continues, so the core runs ahead into iterations that may never happen. When the last <code>jnz</code> resolves as not taken, every younger micro-op is <b>flushed</b> and fetch restarts at the right address. Results only become official at <b>retirement</b>, in program order, up to 8 a cycle.</p>
+  <p class="cpu-watch">Watch for the red flush at the end of the loop.</p>
+</section>
+<section class="cpu-slide cpu-slide-run" data-slide="16">
+  <p class="cpu-num">16 · All together</p>
+  <h2>Run it</h2>
+  <p>The program loads n = 10, adds 10 + 9 + … + 1 = 55, counts the iterations and stores the sum. It retires 45 instructions in 31 cycles, about 1.45 per cycle.</p>
+  <!--LISTING-->
+  <!--CONTROLS-->
+  <p class="cpu-small"><span class="cpu-dot" style="--tint:var(--d-int)"></span>integer <span class="cpu-dot" style="--tint:var(--d-mem)"></span>load/store <span class="cpu-dot" style="--tint:var(--d-ooo)"></span>branch <span class="cpu-dot" style="--tint:var(--d-flush)"></span>flushed</p>
+</section>
