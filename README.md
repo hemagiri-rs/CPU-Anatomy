@@ -40,13 +40,7 @@ Node.js 18 or newer is required to rebuild the project or run the processor mode
 Clone the repository:
 
 ```bash
-git clone <YOUR_REPOSITORY_URL>
-```
-
-Navigate to the project directory:
-
-```bash
-cd <YOUR_REPOSITORY_DIRECTORY>
+git clone https://github.com/hemagiri-rs/CPU-Anatomy.git
 ```
 
 Open either of the following files in your browser:
